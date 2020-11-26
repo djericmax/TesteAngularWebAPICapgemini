@@ -1,9 +1,22 @@
+using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace TesteCapgeminiWebApi.Models
 {
     public class Excel
     {
+        public Excel(){}
+
+        public Excel(int id, DateTime dtEntrega, string nomeProduto, int quantidade, decimal valorUnitario)
+        {
+            this.Id = id;
+            this.DtEntrega = dtEntrega;
+            this.NomeProduto = nomeProduto;
+            this.Quantidade = quantidade;
+            this.ValorUnitario = valorUnitario;
+        }
+
         [Key]
         public int Id { get; set; }
 
@@ -11,7 +24,7 @@ namespace TesteCapgeminiWebApi.Models
         [Required(ErrorMessage = "Data de entrega não pode ser menor que a data atual")]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0: dd/MM/yyyy}", ApplyFormatInEditMode = true)]
-        public DateTime? DtEntrega { get; set; }
+        public DateTime DtEntrega { get; set; }
 
         [Display(Name = "Nome do Produto")]
         [Required(ErrorMessage = "Este campo é obrigatório")]

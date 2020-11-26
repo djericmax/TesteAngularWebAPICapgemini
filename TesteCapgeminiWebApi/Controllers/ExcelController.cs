@@ -6,8 +6,8 @@ using OfficeOpenXml;
 using System.IO;
 using System.Threading.Tasks;
 using TesteCapgeminiWebApi.Models;
-using TesteCapgeminiWebApi.Data;
 using RouteAttribute = Microsoft.AspNetCore.Mvc.RouteAttribute;
+using TesteCapgeminiWebApi.Data;
 
 namespace TesteCapgeminiWebApi.Controllers
 {
@@ -16,6 +16,41 @@ namespace TesteCapgeminiWebApi.Controllers
     public class ExcelController : ControllerBase
     {
         Excel excel = new Excel();
+
+        private readonly IRepository _repo;
+
+        public ExcelController(IRepository repo)
+        {
+            _repo = repo;
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Get()
+        {
+            try
+            {
+                var result = await _repo.GetAllExcelAsync();
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest($"Erro: {ex.Message}");
+            }
+        }
+
+        [HttpGet("{Id}")]
+        public async Task<IActionResult> GetById(int Id)
+        {
+            try
+            {
+                var result = await _repo.GetExcelAsyncById(Id);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest($"Erro: {ex.Message}");
+            }
+        }
 
         [HttpPost]
         public async Task<IActionResult> UploadFile(IFormFile file)
@@ -37,10 +72,10 @@ namespace TesteCapgeminiWebApi.Controllers
                         {
                             for (int k = 1; k <= totalCollumns.Value; k++)
                             {
-                                excel.DataEntrega = package.Workbook.Worksheets[i].Cells[j, k].Value.ToString();
+                                excel.DtEntrega = Convert.ToDateTime(package.Workbook.Worksheets[i].Cells[j, k].Value);
                                 excel.NomeProduto = package.Workbook.Worksheets[i].Cells[j, k].Value.ToString();
-                                excel.Quantidade = package.Workbook.Worksheets[i].Cells[j, k].Value.ToString();
-                                excel.ValorUnitario = package.Workbook.Worksheets[i].Cells[j, k].Value.ToString();
+                                excel.Quantidade = Convert.ToInt32(package.Workbook.Worksheets[i].Cells[j, k].Value.ToString());
+                                excel.ValorUnitario = Convert.ToDecimal(package.Workbook.Worksheets[i].Cells[j, k].Value.ToString());
                             }
                         }
                     }
