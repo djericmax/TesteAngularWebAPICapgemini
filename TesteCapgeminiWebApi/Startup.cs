@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using TesteCapgeminiWebApi.Data;
+
 using TesteCapgeminiWebApi.Models;
 
 namespace TesteCapgeminiWebApi
