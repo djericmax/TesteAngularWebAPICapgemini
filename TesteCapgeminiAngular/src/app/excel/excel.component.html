@@ -1,0 +1,13 @@
+<hr />
+<input type="file" (change)="onFileChange($event)" multiple="false" />
+<br>
+<table class="table table-striped" width="70%">
+    <tbody>
+        <tr class="table table-striped" *ngFor="let row of data">
+            <td *ngFor="let cell of row">{{cell}}</td>
+        </tr>
+    </tbody>     
+  </table>
+
+  
+  
