@@ -10,6 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using TesteCapgeminiWebApi.Models;
 
 namespace TesteCapgeminiWebApi
 {
@@ -26,16 +27,17 @@ namespace TesteCapgeminiWebApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-
-          //  services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
-
+            services.AddDbContext<DataContext>(
+                x => x.UseSqlite(Configuration.GetConnectionString("DefaultConn")));
+            services.AddScoped<Excel>();
             services.AddCors(options => 
             {
-                options.AddPolicy("AllowDev",
-                builder => builder.WithOrigins("*")
-                .AllowAnyHeader()
-                .AllowAnyMethod());
-                });
+                options.AddPolicy("AllowDev", builder =>
+                builder.WithOrigins("*").AllowAnyHeader().AllowAnyMethod());
+            });
+            services.AddControllers()
+                .AddNewtonsoftJson(opt => opt.SerializerSettings.ReferenceLoopHandling =
+                    Newtonsoft.Json.ReferenceLoopHandling.Ignore);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -54,6 +56,8 @@ namespace TesteCapgeminiWebApi
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 
             app.UseEndpoints(endpoints =>
             {
