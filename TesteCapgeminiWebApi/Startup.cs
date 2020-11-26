@@ -11,7 +11,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using SmartSchool_WebAPI.Data;
+using TesteCapgeminiWebApi.Data;
 using TesteCapgeminiWebApi.Models;
 
 namespace TesteCapgeminiWebApi

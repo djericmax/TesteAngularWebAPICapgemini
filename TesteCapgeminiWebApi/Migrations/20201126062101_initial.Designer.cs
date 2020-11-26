@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using SmartSchool_WebAPI.Data;
+using TesteCapgeminiWebApi.Data;
 
 namespace TesteCapgeminiWebApi.Migrations
 {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using TesteCapgeminiWebApi.Models;
 
-namespace SmartSchool_WebAPI.Data
+namespace TesteCapgeminiWebApi.Data
 {
     public class DataContext : DbContext
     {
